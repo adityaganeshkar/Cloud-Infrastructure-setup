@@ -1,6 +1,6 @@
 # variables.tf
 locals {
-  instance_ami= {"Instance-1":"ami-05fb0b8c1424f266b","Instance-2":"ami-05fb0b8c1424f266b"}
+  instance_ami= {"-1":"ami-0c20d88b0021158c6","Instance-2":"ami-0c20d88b0021158c6"}
 }
 
 # Instance Parameters Setting
