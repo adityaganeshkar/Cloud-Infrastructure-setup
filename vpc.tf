@@ -11,8 +11,8 @@ resource "aws_vpc" "terraform-vpc" {
 # Create a public-subnet in the VPC
 resource "aws_subnet" "public-subnet" {
   vpc_id                  = aws_vpc.terraform-vpc.id
-  cidr_block              = "10.0.1.0/24"  # Update with your preferred CIDR block for the subnet
-  availability_zone       = "us-east-2a"   # Update with your preferred availability zone
+  cidr_block              = var.vpc_settings["public_subnet"]  # Update with your preferred CIDR block for the subnet
+  availability_zone       = var.vpc_settings["public_az"]   # Update with your preferred availability zone
   map_public_ip_on_launch = true
   tags = {
     Name = "public-subnet"
@@ -22,8 +22,8 @@ resource "aws_subnet" "public-subnet" {
 # Create a private-subnet in the VPC
 resource "aws_subnet" "private-subnet" {
   vpc_id                  = aws_vpc.terraform-vpc.id
-  cidr_block              = "10.0.2.0/24"  # Update with your preferred CIDR block for the subnet
-  availability_zone       = "us-east-2a"   # Update with your preferred availability zone
+  cidr_block              = var.vpc_settings["private_subnet"]  # Update with your preferred CIDR block for the subnet
+  availability_zone       = var.vpc_settings["private_az"] # Update with your preferred availability zone
   map_public_ip_on_launch = true
   tags = {
     Name = "private-subnet"

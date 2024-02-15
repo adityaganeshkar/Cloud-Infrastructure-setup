@@ -14,3 +14,17 @@ variable "instance_settings" {
     ec2_key = "Q-iam-key-us-east2"
   }
 }
+
+# Subnets Parameters Setting
+variable "vpc_settings" {
+  description = "Settings of the subnets ranges"
+  type        = map(any)
+
+  default = {
+    public_subnet  = "10.0.1.0/24",
+    public_az = "us-east-2a",
+    private_subnet = "10.0.2.0/24",
+    private_az = "us-east-2a",
+
+  }
+}
