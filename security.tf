@@ -5,35 +5,25 @@ resource "aws_security_group" "instance_sg" {
 
   vpc_id = aws_vpc.terraform-vpc.id
 
-  # Define ingress rules as needed
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Allow SSH from anywhere (for demonstration purposes)
+  dynamic "ingress" {
+    for_each = [22, 80, 443, 3306]
+    iterator = port
+    content {
+      from_port   = port.value
+      to_port     = port.value
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"] # Allow SSH from anywhere (for demonstration purposes)
+    }
   }
 
-  # Define ingress rules for http
-  ingress {
-    from_port = 80
-    to_port   = 80
-    protocol  = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 
-  ingress {
-    from_port = 443
-    to_port   = 443
-    protocol  = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"  # Allow all outbound traffic
+    protocol    = "-1" # Allow all outbound traffic
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  
+
 }

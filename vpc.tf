@@ -1,7 +1,7 @@
 # Create a new VPC
 resource "aws_vpc" "terraform-vpc" {
-  cidr_block = "10.0.0.0/16"  # Update with your preferred CIDR block
-  enable_dns_support = true
+  cidr_block           = "10.0.0.0/16" # Update with your preferred CIDR block
+  enable_dns_support   = true
   enable_dns_hostnames = true
   tags = {
     Name = "terraform-vpc"
@@ -11,8 +11,8 @@ resource "aws_vpc" "terraform-vpc" {
 # Create a public-subnet in the VPC
 resource "aws_subnet" "public-subnet" {
   vpc_id                  = aws_vpc.terraform-vpc.id
-  cidr_block              = var.vpc_settings["public_subnet"]  # Update with your preferred CIDR block for the subnet
-  availability_zone       = var.vpc_settings["public_az"]   # Update with your preferred availability zone
+  cidr_block              = var.vpc_settings["public_subnet"] # Update with your preferred CIDR block for the subnet
+  availability_zone       = var.vpc_settings["public_az"]     # Update with your preferred availability zone
   map_public_ip_on_launch = true
   tags = {
     Name = "public-subnet"
@@ -22,8 +22,8 @@ resource "aws_subnet" "public-subnet" {
 # Create a private-subnet in the VPC
 resource "aws_subnet" "private-subnet" {
   vpc_id                  = aws_vpc.terraform-vpc.id
-  cidr_block              = var.vpc_settings["private_subnet"]  # Update with your preferred CIDR block for the subnet
-  availability_zone       = var.vpc_settings["private_az"] # Update with your preferred availability zone
+  cidr_block              = var.vpc_settings["private_subnet"] # Update with your preferred CIDR block for the subnet
+  availability_zone       = var.vpc_settings["private_az"]     # Update with your preferred availability zone
   map_public_ip_on_launch = true
   tags = {
     Name = "private-subnet"
@@ -46,8 +46,8 @@ resource "aws_internet_gateway_attachment" "igt-Attach" {
 
 # Creating Elastic IP
 resource "aws_eip" "elastic-ip" {
-    depends_on = [ aws_internet_gateway.my_igw ]
-  
+  depends_on = [aws_internet_gateway.my_igw]
+
 }
 
 # Create the NAT gateway
@@ -97,7 +97,7 @@ resource "aws_route_table" "pri" {
 resource "aws_route" "private-route" {
   route_table_id         = aws_route_table.pri.id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id = aws_nat_gateway.NAT-gateway.id
+  nat_gateway_id         = aws_nat_gateway.NAT-gateway.id
 }
 
 
